@@ -21,7 +21,7 @@ export async function createTarotTable(element: HTMLElement) {
   await app.init({
     resizeTo: element,
     background: "#111111",
-    resolution: window.devicePixelRatio,
+    resolution: window.devicePixelRatio || 1,
     autoDensity: true,
   });
 
@@ -42,10 +42,14 @@ export async function createTarotTable(element: HTMLElement) {
    */
   const stack = new CardStack(app.stage);
 
-  stack.x = 100;
-  stack.y = 350;
-
   app.stage.addChild(stack);
+
+  function positionStack() {
+    stack.x = 40;
+    stack.y = app.screen.height - 240;
+  }
+
+  positionStack();
 
   const shuffledCards = shuffle(tarotCards);
 
@@ -59,6 +63,8 @@ export async function createTarotTable(element: HTMLElement) {
 
     stack.push(card);
   }
+
+  window.addEventListener("resize", positionStack);
 
   return app;
 }

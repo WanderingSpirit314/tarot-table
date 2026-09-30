@@ -34,7 +34,8 @@ export class Card extends Container {
     this.frontSprite = new Sprite(Texture.from(data.image));
     this.backSprite = new Sprite(Texture.from("/cards/back.png"));
 
-    const CARD_WIDTH = 80;
+    // Larger cards, especially on mobile.
+    const CARD_WIDTH = window.innerWidth <= 600 ? 140 : 120;
 
     this.frontSprite.width = CARD_WIDTH;
     this.frontSprite.height =
